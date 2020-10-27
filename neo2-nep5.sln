@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunaToken", "luna-token\LunaToken.csproj", "{1BC80790-06AB-4CAA-BC8C-D77C68ECE06F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoxToken", "sox-token\SoxToken.csproj", "{4D960544-7B6D-400F-92D3-B4205AC26654}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{1BC80790-06AB-4CAA-BC8C-D77C68ECE06F}.Release|x64.Build.0 = Release|Any CPU
 		{1BC80790-06AB-4CAA-BC8C-D77C68ECE06F}.Release|x86.ActiveCfg = Release|Any CPU
 		{1BC80790-06AB-4CAA-BC8C-D77C68ECE06F}.Release|x86.Build.0 = Release|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Debug|x64.Build.0 = Debug|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Debug|x86.Build.0 = Debug|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Release|x64.ActiveCfg = Release|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Release|x64.Build.0 = Release|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Release|x86.ActiveCfg = Release|Any CPU
+		{4D960544-7B6D-400F-92D3-B4205AC26654}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
