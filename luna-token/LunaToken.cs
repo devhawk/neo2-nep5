@@ -19,7 +19,7 @@ namespace DevHawk.Neo.Samples
         const string SYMBOL = "LUNA";
         const byte DECIMALS = 8;
         static readonly BigInteger TOTAL_SUPPLY = 100_000_000 * BigInteger.Pow(10, DECIMALS);
-        static readonly byte[] OWNER = "AXTE9ZeWPNULctmHk8ySZbDyFb3Mj5VKRw".ToScriptHash();
+        static readonly byte[] OWNER = "AcAYK2AyjGARiVS73jHuCxqUPa2BqqQYmh".ToScriptHash();
         static readonly byte[] ZERO_ADDRESS = "0000000000000000000000000000000000000000".HexToBytes();
 
         [DisplayName("transfer")]
