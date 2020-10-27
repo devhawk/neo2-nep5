@@ -18,7 +18,7 @@ namespace DevHawk.Neo.Samples
         const string NAME = "LunaToken";
         const string SYMBOL = "LUNA";
         const byte DECIMALS = 8;
-        static readonly BigInteger TOTAL_SUPPLY = 100_000_000 * BigInteger.Pow(10, DECIMALS);
+        static readonly BigInteger TOTAL_SUPPLY = new BigInteger("0000c16ff28623".HexToBytes()); // 100,000,000 * 10^8
         static readonly byte[] OWNER = "AcAYK2AyjGARiVS73jHuCxqUPa2BqqQYmh".ToScriptHash();
         static readonly byte[] ZERO_ADDRESS = "0000000000000000000000000000000000000000".HexToBytes();
 
@@ -34,36 +34,17 @@ namespace DevHawk.Neo.Samples
 
             if (Runtime.Trigger == TriggerType.Application)
             {
-                switch (operation)
-                {
-                    // NEP5 methods
-                    case "name":
-                        return Name();
-                    case "symbol":
-                        return Symbol();
-                    case "decimals":
-                        return Decimals();
-                    case "totalSupply":
-                        return TotalSupply();
-                    case "balanceOf":
-                        return BalanceOf((byte[])args[0]);
-                    case "transfer":
-                        return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2], ExecutionEngine.CallingScriptHash);
-
-                    // Owner management
-                    case "transferOwnership":
-                        return TransferOwnership((byte[])args[0]);
-                    case "getOwner":
-                        return GetOwner();
-
-                    // Contract management
-                    case "deploy":
-                        return Deploy();
-                    case "isDeployed":
-                        return IsDeployed();
-                    case "upgrade":
-                        return Upgrade((byte[])args[0], (byte[])args[1], (byte)args[2], (ContractPropertyState)args[3], (string)args[4], (string)args[5], (string)args[6], (string)args[7], (string)args[8]);
-                }
+                if (operation == "name") return Name();
+                if (operation == "symbol") return Symbol();
+                if (operation == "decimals") return Decimals();
+                if (operation == "totalSupply") return TotalSupply();
+                if (operation == "balanceOf") return BalanceOf((byte[])args[0]);
+                if (operation == "transfer") return Transfer((byte[])args[0], (byte[])args[1], (BigInteger)args[2], ExecutionEngine.CallingScriptHash);
+                if (operation == "transferOwnership") return TransferOwnership((byte[])args[0]);
+                if (operation == "getOwner") return GetOwner();
+                if (operation == "deploy") return Deploy();
+                if (operation == "isDeployed") return IsDeployed();
+                if (operation == "upgrade") return Upgrade((byte[])args[0], (byte[])args[1], (byte)args[2], (byte)args[3], (string)args[4], (string)args[5], (string)args[6], (string)args[7], (string)args[8]);
             }
 
             return false;
@@ -74,13 +55,13 @@ namespace DevHawk.Neo.Samples
         {
             if (!Runtime.CheckWitness(OWNER))
             {
-                Runtime.Notify("Only owner can deploy this contract.");
+                Runtime.Log("Only owner can deploy this contract.");
                 return false;
             }
 
             if (IsDeployed())
             {
-                Runtime.Notify("Already deployed");
+                Runtime.Log("Already deployed");
                 return false;
             }
 
@@ -125,7 +106,7 @@ namespace DevHawk.Neo.Samples
         {
             if (!IsAddress(account))
             {
-                Runtime.Notify("The parameter account SHOULD be a legal address.");
+                Runtime.Log("The parameter account SHOULD be a legal address.");
                 return 0;
             }
 
@@ -140,26 +121,26 @@ namespace DevHawk.Neo.Samples
         {
             if (!IsAddress(from) || !IsAddress(to))
             {
-                Runtime.Notify("The parameters from and to SHOULD be legal addresses.");
+                Runtime.Log("The parameters from and to SHOULD be legal addresses.");
                 return false;
             }
 
             if (amount <= 0)
             {
-                Runtime.Notify("The parameter amount MUST be greater than 0.");
+                Runtime.Log("The parameter amount MUST be greater than 0.");
                 return false;
             }
 
             if (!IsPayable(to))
             {
-                Runtime.Notify("The to account is not payable.");
+                Runtime.Log("The to account is not payable.");
                 return false;
             }
 
             if (!Runtime.CheckWitness(from) && from.AsBigInteger() != callscript.AsBigInteger())
             {
                 // either the tx is signed by "from" or is called by "from"
-                Runtime.Notify("Not authorized by the from account");
+                Runtime.Log("Not authorized by the from account");
                 return false;
             }
 
@@ -167,7 +148,7 @@ namespace DevHawk.Neo.Samples
             var fromAmount = asset.Get(from).AsBigInteger();
             if (fromAmount < amount)
             {
-                Runtime.Notify("Insufficient funds");
+                Runtime.Log("Insufficient funds");
                 return false;
             }
 
@@ -197,13 +178,13 @@ namespace DevHawk.Neo.Samples
         {
             if (!Runtime.CheckWitness(GetOwner()))
             {
-                Runtime.Notify("Only allowed to be called by owner.");
+                Runtime.Log("Only allowed to be called by owner.");
                 return false;
             }
 
             if (!IsAddress(newOwner))
             {
-                Runtime.Notify("The parameter newOwner SHOULD be a legal address.");
+                Runtime.Log("The parameter newOwner SHOULD be a legal address.");
                 return false;
             }
 
@@ -221,17 +202,17 @@ namespace DevHawk.Neo.Samples
         }
 
         [DisplayName("upgrade")]
-        public static bool Upgrade(byte[] newScript, byte[] paramList, byte returnType, ContractPropertyState cps,
+        public static bool Upgrade(byte[] newScript, byte[] paramList, byte returnType, byte cps,
             string name, string version, string author, string email, string description)
         {
             if (!Runtime.CheckWitness(GetOwner()))
             {
-                Runtime.Notify("Only allowed to be called by owner.");
+                Runtime.Log("Only allowed to be called by owner.");
                 return false;
             }
 
-            _ = Contract.Migrate(newScript, paramList, returnType, cps, name, version, author, email, description);
-            Runtime.Notify("contract upgraded");
+            _ = Contract.Migrate(newScript, paramList, returnType, (ContractPropertyState)cps, name, version, author, email, description);
+            Runtime.Log("contract upgraded");
             return true;
         }
 

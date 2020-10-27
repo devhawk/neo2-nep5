@@ -1,0 +1,4 @@
+{
+    "contract": "./bin/Debug/netstandard2.0/LunaToken.avm",
+    "args": ["deploy", []]
+}
