@@ -9,8 +9,43 @@
             "type": "neo-contract",
             "request": "launch",
             "program": "${workspaceFolder}\\luna-token\\bin\\Debug\\netstandard2.0\\LunaToken.avm",
-            "args": ["decimals"],
+            "args": [
+                "deploy"
+            ],
             "storage": [],
+            "runtime": {
+                "witnesses": {
+                    "check-result": true
+                }
+            }
+        },
+        {
+            "name": "LunaToken transfer",
+            "type": "neo-contract",
+            "request": "launch",
+            "program": "${workspaceFolder}\\luna-token\\bin\\Debug\\netstandard2.0\\LunaToken.avm",
+            "args": [
+                "transfer",
+                [
+                    "@AcAYK2AyjGARiVS73jHuCxqUPa2BqqQYmh",
+                    "@AJfJbLVz3AxRzPtsPKp7CY8EsWKF4cpF5F",
+                    100
+                ]
+            ],
+            "storage": [
+                {
+                    "key": "0x796c707075536c61746f740074636172746e6f63",
+                    "value": "0x2386f26fc10000"
+                },
+                {
+                    "key": "0x72656e776f0074636172746e6f63",
+                    "value": "0x4cb1c16687bb342c91aecdbaeccdb68b2bf1abdf"
+                },
+                {
+                    "key": "0x4cb1c16687bb342c91aecdbaeccdb68b2bf1abdf007465737361",
+                    "value": "0x2386f26fc10000"
+                }
+            ],
             "runtime": {
                 "witnesses": {
                     "check-result": true
